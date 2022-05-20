@@ -1,6 +1,7 @@
 {
   "extends": [
     "eslint:recommended",
+    "airbnb",
     "prettier"
   ],
   "plugins": [
@@ -19,14 +20,21 @@
     }
   },
   "rules": {
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
     "prettier/prettier": [
-      "error"
+      "error",
+      {
+        "singleQuote": true
+      }
     ],
     "no-console": "error",
     "no-empty": "off",
     "semi": "error",
     "keyword-spacing": "error",
     "require-atomic-updates": "off",
+    "react/button-has-type": "off",
+    "react/function-component-definition": "off",
     "react/no-string-refs": "error",
     "react/no-find-dom-node": "error",
     "react/no-is-mounted": "error",
@@ -34,6 +42,10 @@
     "react/jsx-curly-spacing": "error",
     "react/jsx-no-undef": "error",
     "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error"
+    "react/jsx-uses-vars": "error",
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".tsx"] }
+    ]
   }
 }
