@@ -11,8 +11,7 @@
 
 *   `npm run lint`: Pass TypeScript files using ESLint
 
-*   `npm run test`: Run Jest and Enzyme with
-    [`enzyme-adapter-preact-pure`](https://github.com/preactjs/enzyme-adapter-preact-pure) for
+*   `npm run test`: Run Jest and [@testing-library/preact](https://testing-library.com/docs/preact-testing-library/intro) for
     your tests
 
 
