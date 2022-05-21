@@ -1,10 +1,16 @@
+@font-face {
+	font-family: 'Atkinson';
+	src: url('../assets/woff/Atkinson-Hyperlegible-Regular-102.woff') format('woff'),
+		url('../assets/ttf/Atkinson-Hyperlegible-Regular-102.ttf') format('truetype');
+}
+
 html, body {
 	height: 100%;
 	width: 100%;
 	padding: 0;
 	margin: 0;
 	background: #FAFAFA;
-	font-family: 'Helvetica Neue', arial, sans-serif;
+	font-family: Atkinson, 'Helvetica Neue', Arial, sans-serif;
 	font-weight: 400;
 	color: #444;
 	-webkit-font-smoothing: antialiased;
