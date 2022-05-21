@@ -5,6 +5,5 @@
   "semi": true,
   "useTabs": false,
   "singleQuote": true,
-  "tsxSingleQuote": true,
   "endOfLine": "lf"
 }
