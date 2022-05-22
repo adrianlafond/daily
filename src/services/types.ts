@@ -1,10 +1,20 @@
+export interface Todo {
+  done: boolean;
+  label: string;
+}
+
+export interface Day {
+  date: string;
+  todos: Todo[];
+}
+
+export interface Warning {
+  line: number;
+  message: string;
+}
+
 export interface Todos {
   title: string;
-  days: {
-    title: string;
-    todos: {
-      done: boolean;
-      label: string;
-    }[];
-  }[];
+  days: Day[];
+  warnings: Warning[];
 }

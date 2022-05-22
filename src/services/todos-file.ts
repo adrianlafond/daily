@@ -18,7 +18,6 @@ export async function openTodosFile(): Promise<Todos | null> {
     multiple: false,
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [fileHandle] = await window.showOpenFilePicker(options);
 
   if (fileHandle.kind === 'file') {

@@ -4,6 +4,11 @@
     "airbnb",
     "prettier"
   ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
   "plugins": [
     "prettier"
   ],
@@ -13,22 +18,40 @@
       "version": "detect"
     }
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "ecmaVersion": "latest",
+    "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
   },
   "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.spec.tsx",
+          "**/*.spec.ts"
+        ]
+      }
+    ],
     "import/no-unresolved": "off",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
     "prettier/prettier": [
       "error",
       {
-        "singleQuote": true
+        "singleQuote": true,
+        "printWidth": 120
       }
     ],
+    "max-len": ["error", {
+      "code": 120,
+      "ignoreUrls": true,
+      "ignoreTemplateLiterals": true,
+      "ignoreRegExpLiterals": true
+    }],
     "no-console": "error",
     "no-empty": "off",
     "semi": "error",
