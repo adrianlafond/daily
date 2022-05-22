@@ -8,7 +8,8 @@ export function getDefaultTodos(): Todos {
   };
 }
 
-export const WARNING_MULTIPLE_TITLES = 'Multiple level 1 ("#") headers were found.';
+export const WARNING_MULTIPLE_TITLES =
+  'Multiple level 1 ("#") headers were found.';
 
 /**
  * Parses todos data in markdown format into a data object.

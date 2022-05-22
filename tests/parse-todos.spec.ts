@@ -1,4 +1,8 @@
-import { parseTodos, getDefaultTodos, WARNING_MULTIPLE_TITLES } from '../src/services';
+import {
+  parseTodos,
+  getDefaultTodos,
+  WARNING_MULTIPLE_TITLES,
+} from '../src/services';
 
 describe('parseTodos', () => {
   it('returns default todos when input is empty', () => {
