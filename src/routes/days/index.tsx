@@ -13,6 +13,11 @@ export interface DaysProps {
 const CLIENT_ID = 'ih3d422ruazvhwd';
 
 const Days = ({ date }: DaysProps) => {
+  const [count, setCount] = useState(0);
+  function increment() {
+    setCount(count + 1);
+  }
+
   const [days, setDays] = useState(getDefaultTodos());
   const [auth, setAuth] = useState({
     isAuthenticated: false,
@@ -63,6 +68,10 @@ const Days = ({ date }: DaysProps) => {
   return (
     <div className={style.days}>
       <h1>{days.title}</h1>
+
+      <p>count: {count}</p>
+
+      <button onClick={increment}>increment</button>
 
       <h2>{date}</h2>
       <p>This is the Days component.</p>
