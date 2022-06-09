@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@fastify/static": "^5.0.2",
+    "classnames": "^2.3.1",
     "dropbox": "^10.30.0",
     "fastify": "^3.29.0",
     "preact": "^10.3.1",

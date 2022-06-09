@@ -39,21 +39,18 @@
     "import/no-unresolved": "off",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true,
-        "printWidth": 80
-      }
-    ],
+    "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" }],
     "max-len": ["error", {
-      "code": 120,
+      "code": 80,
       "ignoreUrls": true,
       "ignoreTemplateLiterals": true,
       "ignoreRegExpLiterals": true
     }],
     "no-console": "error",
     "no-empty": "off",
+    "no-plusplus": "off",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
     "semi": "error",
     "keyword-spacing": "error",
     "require-atomic-updates": "off",
@@ -71,6 +68,7 @@
       "error",
       { "extensions": [".tsx"] }
     ],
+    "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off"
   }
 }
