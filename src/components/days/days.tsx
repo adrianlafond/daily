@@ -7,7 +7,7 @@ export interface DaysProps extends Omit<Todos, 'warnings'> {}
 
 export const Days = ({ title, days }: DaysProps) => (
   <div className={style.days}>
-    <h1>{title}</h1>
+    <h2>{title}</h2>
     {days.map(day => <DayTodos key={day.date} {...day} />)}
   </div>
 );

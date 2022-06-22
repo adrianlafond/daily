@@ -24,12 +24,12 @@ const Days = ({ date }: DaysProps) => {
     url: '',
   });
 
-  const handleOpenFile = async () => {
+  async function handleOpenFile() {
     const data = await openTodosFile();
     if (data) {
       setDays(data);
     }
-  };
+  }
 
   async function listFiles(accessToken: string) {
     const dbx = new Dropbox({ accessToken });

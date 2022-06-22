@@ -1,17 +1,27 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 import { h, ComponentChildren } from 'preact';
-import { useRef, useState } from 'preact/hooks';
+import { useMemo, useRef, useState } from 'preact/hooks';
 import cx from 'classnames';
 import style from './style.css';
 import { coords } from './coords';
+import { DraggableContext, DraggableContextProps } from './draggable-context';
 
 export interface DraggableProps {
   children: ComponentChildren;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
 }
 
-export const Draggable = ({ children }: DraggableProps) => {
+export const Draggable = ({
+  children,
+  onDragStart,
+  onDragEnd,
+}: DraggableProps) => {
   const el = useRef<HTMLDivElement>(null);
   const start = useRef({ x: 0, y: 0 });
-  const [dragging, setDragging] = useState(false);
+  const [context, setContext] = useState<DraggableContextProps>({
+    dragging: false,
+  });
 
   function handleMove(event: MouseEvent | TouchEvent) {
     if (el.current) {
@@ -34,14 +44,20 @@ export const Draggable = ({ children }: DraggableProps) => {
     if (el.current) {
       el.current.style.removeProperty('transform');
     }
-    setDragging(false);
+    setContext({ dragging: false });
+    if (onDragEnd) {
+      onDragEnd();
+    }
   }
 
   function handleDown(event: MouseEvent | TouchEvent) {
     const { x, y } = coords(event);
     start.current.x = x;
     start.current.y = y;
-    setDragging(true);
+    setContext({ dragging: true });
+    if (onDragStart) {
+      onDragStart();
+    }
   }
 
   function handleMouseDown(event: MouseEvent) {
@@ -58,18 +74,20 @@ export const Draggable = ({ children }: DraggableProps) => {
   }
 
   const className = cx(style.draggable, {
-    [style['draggable--dragging']]: dragging,
+    [style['draggable--dragging']]: context.dragging,
   });
 
   return (
-    <div
-      ref={el}
-      onMouseDown={handleMouseDown}
-      onTouchStart={handleTouchStart}
-      role="presentation"
-      className={className}
-    >
-      {children}
-    </div>
+    <DraggableContext.Provider value={context}>
+      <div
+        ref={el}
+        onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
+        role="presentation"
+        className={className}
+      >
+        {children}
+      </div>
+    </DraggableContext.Provider>
   );
 };

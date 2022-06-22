@@ -59,6 +59,7 @@
     "react/no-string-refs": "error",
     "react/no-find-dom-node": "error",
     "react/no-is-mounted": "error",
+    "react/jsx-no-bind": ["error", { "allowFunctions": true }],
     "react/jsx-no-comment-textnodes": "error",
     "react/jsx-curly-spacing": "error",
     "react/jsx-no-undef": "error",
