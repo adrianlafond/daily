@@ -15,6 +15,7 @@ let uidNum = 0;
 export const TodoItem = ({ label, done, date, index }: TodoItemProps) => {
   const [editing, setEditing] = useState(false);
   const [dragging, setDragging] = useState(false);
+  const element = useRef<HTMLDivElement>(null);
 
   const uid = useRef(`todo-${uidNum++}`);
 
@@ -24,6 +25,41 @@ export const TodoItem = ({ label, done, date, index }: TodoItemProps) => {
 
   function handleDragEnd() {
     setDragging(false);
+  }
+
+  function handleDragUpdate() {
+    const items: HTMLElement[] = Array.from(
+      document.querySelectorAll('[data-todo]'));
+    items.splice(items.findIndex(item => item === element.current), 1);
+    const elY = element.current?.getBoundingClientRect().y;
+
+    if (elY != null) {
+      let start = 0;
+      let end = items.length;
+      const findDropIndex = (): number => {
+        if (end === start) {
+          return end;
+        }
+        if (end - start === 1) {
+          return start;
+        }
+        const mid = Math.floor((end - start) / 2 + start);
+        const midY = items[mid].getBoundingClientRect().y;
+        if (elY === midY) {
+          return mid;
+        }
+        if (elY < midY) {
+          end = mid;
+          return findDropIndex();
+        }
+        start = mid;
+        return findDropIndex();
+      };
+      const dropIndex = findDropIndex();
+      items.forEach((item, i) => {
+        item.style.borderBottom = i === dropIndex ? '1px solid red' : 'none';
+      });
+    }
   }
 
   function handleDblClick() {
@@ -55,8 +91,12 @@ export const TodoItem = ({ label, done, date, index }: TodoItemProps) => {
   });
 
   return (
-    <Draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div className={blockClassName} data-todo={`${date}-${index}`}>
+    <Draggable
+      onDragStart={handleDragStart}
+      onDragUpdate={handleDragUpdate}
+      onDragEnd={handleDragEnd}
+    >
+      <div className={blockClassName} ref={element} data-todo={`${date}-${index}`}>
         <div className={inlineBlockClassName}>
           <input
             id={uid.current}

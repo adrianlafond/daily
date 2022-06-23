@@ -9,12 +9,14 @@ import { DraggableContext, DraggableContextProps } from './draggable-context';
 export interface DraggableProps {
   children: ComponentChildren;
   onDragStart?: () => void;
+  onDragUpdate?: () => void;
   onDragEnd?: () => void;
 }
 
 export const Draggable = ({
   children,
   onDragStart,
+  onDragUpdate,
   onDragEnd,
 }: DraggableProps) => {
   const el = useRef<HTMLDivElement>(null);
@@ -29,6 +31,9 @@ export const Draggable = ({
       const tx = x - start.current.x;
       const ty = y - start.current.y;
       el.current.style.transform = `translate(${tx}px, ${ty}px)`;
+      if (onDragUpdate) {
+        onDragUpdate();
+      }
     }
   }
 

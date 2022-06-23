@@ -12,7 +12,7 @@ export const DayTodos = ({ date, todos }: DayTodosProps) => (
       {idToDate(date)}
     </h3>
     {todos.map((todo, index) => (
-      <TodoItem key={todo.label} {...todo} date={date} index={index + 1} />
+      <TodoItem key={`${date}-${todo.label}`} {...todo} date={date} index={index + 1} />
     ))}
   </div>
 );

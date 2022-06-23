@@ -50,6 +50,7 @@
     "no-empty": "off",
     "no-plusplus": "off",
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-param-reassign": ["error", { "props": false }],
     "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
     "semi": "error",
     "keyword-spacing": "error",
