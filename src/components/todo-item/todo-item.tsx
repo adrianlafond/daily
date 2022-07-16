@@ -57,7 +57,8 @@ export const TodoItem = ({ label, done, date, index }: TodoItemProps) => {
       };
       const dropIndex = findDropIndex();
       items.forEach((item, i) => {
-        item.style.borderBottom = i === dropIndex ? '1px solid red' : 'none';
+        item.style.marginBottom = i === dropIndex ? '24px' : 'unset';
+        // item.style.borderBottom = i === dropIndex ? '1px solid red' : 'none';
       });
     }
   }

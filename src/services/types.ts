@@ -1,6 +1,7 @@
 export interface Todo {
   done: boolean;
   label: string;
+  id: string;
 }
 
 export interface Day {

@@ -23,7 +23,7 @@ export function isValidDate(value: string) {
 export function parseTodos(markdown: string): Todos {
   const data = getDefaultTodos();
 
-  const lines = markdown.split('\n');
+  const lines = markdown.trim().split('\n');
   let titleFound = false;
 
   function processTitle(text: string, line: number) {

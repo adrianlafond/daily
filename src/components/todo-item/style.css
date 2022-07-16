@@ -1,7 +1,8 @@
 .todo {
   display: block;
   max-height: 100px;
-  transition: max-height 0.3s ease-out;
+  transition: max-height 0.3s ease-out,
+    margin-bottom 0.3s ease-out;
 }
 
 .todo--dragging {

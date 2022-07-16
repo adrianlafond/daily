@@ -1,9 +1,21 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
 import {
   parseTodos,
   getDefaultTodos,
   WARNING_MULTIPLE_TITLES,
   WARNING_INVALID_DATE_FORMAT,
 } from '../src/services';
+
+function file(filename: string) {
+  const fullPath = path.join(__dirname, `./data/${filename}.md`);
+  return fs.readFileSync(fullPath, { encoding: 'utf8' });
+}
+
+function testParseTodos(filename: string) {
+  return parseTodos(file(filename));
+}
 
 describe('parseTodos >', () => {
   it('returns default todos when input is empty', () => {
@@ -12,10 +24,10 @@ describe('parseTodos >', () => {
 
   describe('title >', () => {
     it('returns a level 1 header as the title', () => {
-      expect(parseTodos('# test header').title).toBe('test header');
+      expect(testParseTodos('header1').title).toBe('test header');
     });
     it('returns a warning if more than one level 1 header is found', () => {
-      const parsed = parseTodos('# test header\n# second header');
+      const parsed = testParseTodos('header2');
       expect(parsed.title).toBe('test header');
       expect(parsed.warnings.length).toBe(1);
       expect(parsed.warnings[0].line).toBe(2);
@@ -25,12 +37,12 @@ describe('parseTodos >', () => {
 
   describe('date >', () => {
     it('returns a level 2 header as a date', () => {
-      const parsed = parseTodos('## 2022-10-31 M');
+      const parsed = testParseTodos('dates1');
       expect(parsed.days.length).toBe(1);
       expect(parsed.days[0].date).toBe('2022-10-31 M');
     });
     it('returns a date for each valid level 2 header', () => {
-      const parsed = parseTodos('## 2022-10-31 M\n## invalid\n## 2022-11-01 T');
+      const parsed = testParseTodos('dates2');
       expect(parsed.days.length).toBe(2);
       expect(parsed.days[0].date).toBe('2022-10-31 M');
       expect(parsed.days[1].date).toBe('2022-11-01 T');
