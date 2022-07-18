@@ -9,23 +9,27 @@ function addLeadingZero(num: number) {
 }
 
 /**
- * Converts an date ID to a format suitable for a display. Assumes input is in
- * format YYYYMMDD.
+ * Converts an date ID to a Date object. Assumes input is in
+ * format YYYY-MM-DD.
  */
 export function idToDate(id: string) {
-  const nullDate = '0000-00-00 X';
-  if (id.length === 8) {
+  if (id.length >= 10) {
     const year = +id.substring(0, 4);
-    const month = +id.substring(4, 6);
-    const date = +id.substring(6);
+    const month = +id.substring(5, 7);
+    const date = +id.substring(8, 10);
     if (!Number.isNaN(year) && !Number.isNaN(month) && !Number.isNaN(date)) {
-      const dateObj = new Date(year, month - 1, date);
-      return `${dateObj.getFullYear()}-` +
-        `${addLeadingZero(dateObj.getMonth() + 1)}-` +
-        `${addLeadingZero(dateObj.getDate())} ` +
-        `${days[dateObj.getDay()]}`;
+      return new Date(year, month - 1, date);
     }
   }
+  return null;
+}
 
-  return nullDate;
+/**
+ * Converts a Date to a format suitable for a display.
+ */
+export function idToFormattedDate(date: Date) {
+  return `${date.getFullYear()}-` +
+  `${addLeadingZero(date.getMonth() + 1)}-` +
+  `${addLeadingZero(date.getDate())} ` +
+  `${days[date.getDay()]}`;
 }

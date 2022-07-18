@@ -6,6 +6,7 @@ export interface Todo {
 
 export interface Day {
   date: string;
+  value: number;
   todos: Todo[];
 }
 

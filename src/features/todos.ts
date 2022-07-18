@@ -1,37 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Todos, Todo } from '../services';
+import { Todos, Todo, parseTodos } from '../services';
 
 
 const name = 'zoom';
-const initialState = {
-  title: 'Personal',
-  days: [{
-    date: '20220604',
-    todos: [{
-      done: false,
-      label: 'walk the dog',
-    }, {
-      done: false,
-      label: 'water the plants',
-    }, {
-      done: false,
-      label: 'make dinner'
-    }],
-  }, {
-    date: '20220603',
-    todos: [{
-      done: false,
-      label: 'buy milk',
-    }, {
-      done: false,
-      label: 'pet the cats',
-    }, {
-      done: false,
-      label: 'sweep',
-    }],
-  }],
-  warnings: [],
-} as Todos;
+const initialState = parseTodos(`
+# personal
+
+## 2022-10-31 M
+- [ ] buy milk
+- [ ] buy milk
+- [x] water plants
+
+## 2022-11-01 T
+- [ ] buy milk
+- [ ] take out the garbage
+- [ ] buy milk
+- [ ] vacuum
+`) as Todos;
 
 export const todosSlice = createSlice({
   name,
