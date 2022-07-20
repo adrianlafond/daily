@@ -1,6 +1,6 @@
-import { ownKeys } from 'immer/dist/internal';
 import { Day, Todos } from './types';
 import { idToDate, idToFormattedDate } from './id-to-date';
+import { todoUid } from './todo-uid';
 
 export function getDefaultTodos(): Todos {
   return {
@@ -14,9 +14,6 @@ export const WARNING_MULTIPLE_TITLES =
   'Multiple level 1 ("#") headers were found.';
 export const WARNING_INVALID_DATE_FORMAT = 'Date is in invalid format.';
 export const WARNING_DUPLICATED_DATE = 'The same date was repeated.';
-
-let idNum = 0;
-const uid = () => `todo-${idNum++}`;
 
 /**
  * Parses todos data in markdown format into a data object.
@@ -77,7 +74,7 @@ export function parseTodos(markdown: string): Todos {
     currentDay.todos.push({
       done: text.startsWith('- [x]'),
       label: text.substring(5).trim(),
-      id: uid(),
+      id: todoUid(),
     });
   }
 
