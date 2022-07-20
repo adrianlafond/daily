@@ -1,24 +1,24 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import { h, ComponentChildren } from 'preact';
-import { useMemo, useRef, useState } from 'preact/hooks';
+import { useRef, useState } from 'preact/hooks';
 import cx from 'classnames';
 import style from './style.css';
 import { coords } from './coords';
 import { DraggableContext, DraggableContextProps } from './draggable-context';
 
-export interface DraggableProps {
+export interface DraggableListItemProps {
   children: ComponentChildren;
   onDragStart?: () => void;
   onDragUpdate?: () => void;
   onDragEnd?: () => void;
 }
 
-export const Draggable = ({
+export const DraggableListItem = ({
   children,
   onDragStart,
   onDragUpdate,
   onDragEnd,
-}: DraggableProps) => {
+}: DraggableListItemProps) => {
   const el = useRef<HTMLDivElement>(null);
   const start = useRef({ x: 0, y: 0 });
   const [context, setContext] = useState<DraggableContextProps>({

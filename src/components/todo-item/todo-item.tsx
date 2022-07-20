@@ -3,7 +3,7 @@ import { useRef, useState } from 'preact/hooks';
 import cx from 'classnames';
 import { ChangeEvent } from 'preact/compat';
 import { Todo } from '../../services';
-import { Draggable } from '../draggable';
+import { DraggableListItem } from '../draggable-list-tem';
 import { useAppDispatch } from '../../hooks';
 import { deleteTodo, editTodoLabel, editTodoDone } from '../../features';
 import style from './style.css';
@@ -117,7 +117,7 @@ export const TodoItem = ({ label, done, date, id, index }: TodoItemProps) => {
   });
 
   return (
-    <Draggable
+    <DraggableListItem
       onDragStart={handleDragStart}
       onDragUpdate={handleDragUpdate}
       onDragEnd={handleDragEnd}
@@ -152,6 +152,6 @@ export const TodoItem = ({ label, done, date, id, index }: TodoItemProps) => {
           )}
         </div>
       </div>
-    </Draggable>
+    </DraggableListItem>
   );
 };
