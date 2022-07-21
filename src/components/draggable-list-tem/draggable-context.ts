@@ -1,9 +1,9 @@
 import { createContext } from 'preact'
 
 export interface DraggableContextProps {
-  dragging: boolean;
+  dragging: boolean
 }
 
 export const DraggableContext = createContext<DraggableContextProps>({
-  dragging: false,
+  dragging: false
 })

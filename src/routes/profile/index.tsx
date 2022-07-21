@@ -3,7 +3,7 @@ import { useEffect, useState } from 'preact/hooks'
 import style from './style.css'
 
 interface Props {
-  user: string;
+  user: string
 }
 
 const Profile: FunctionalComponent<Props> = (props: Props) => {
@@ -22,7 +22,7 @@ const Profile: FunctionalComponent<Props> = (props: Props) => {
   }, [])
 
   // update the current time
-  function increment() {
+  function increment () {
     setCount(count + 1)
   }
 

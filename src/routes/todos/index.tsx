@@ -5,12 +5,12 @@ import { RootState } from '../../store'
 import style from './style.css'
 
 export interface TodosProps {
-  date: string;
+  date: string
 }
 
 const Todos = ({ date }: TodosProps) => {
   const { todos } = useAppSelector((state: RootState) => ({
-    todos: state.todos,
+    todos: state.todos
   }))
 
   return (
@@ -21,6 +21,5 @@ const Todos = ({ date }: TodosProps) => {
     </div>
   )
 }
-
 
 export default Todos

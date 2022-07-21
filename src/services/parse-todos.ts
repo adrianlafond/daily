@@ -2,11 +2,11 @@ import { Day, Todos } from './types'
 import { idToDate, idToFormattedDate } from './id-to-date'
 import { todoUid } from './todo-uid'
 
-export function getDefaultTodos(): Todos {
+export function getDefaultTodos (): Todos {
   return {
     title: '[Untitled]',
     days: [],
-    warnings: [],
+    warnings: []
   }
 }
 
@@ -18,19 +18,19 @@ export const WARNING_DUPLICATED_DATE = 'The same date was repeated.'
 /**
  * Parses todos data in markdown format into a data object.
  */
-export function parseTodos(markdown: string): Todos {
+export function parseTodos (markdown: string): Todos {
   const data = getDefaultTodos()
 
   const lines = markdown.trim().split('\n')
   let titleFound = false
   let currentDay: Day | null = null
 
-  function processTitle(text: string, line: number) {
+  function processTitle (text: string, line: number) {
     currentDay = null
     if (titleFound) {
       data.warnings.push({
         line,
-        message: WARNING_MULTIPLE_TITLES,
+        message: WARNING_MULTIPLE_TITLES
       })
     } else {
       titleFound = true
@@ -38,47 +38,47 @@ export function parseTodos(markdown: string): Todos {
     }
   }
 
-  function processDate(text: string, line: number) {
+  function processDate (text: string, line: number) {
     currentDay = null
     const rawDate = text.substring(3).trim()
     const date = idToDate(rawDate)
-    if (date) {
+    if (date != null) {
       const value = date.valueOf()
       const existingDay = data.days.find(day => day.value === value)
-      if (existingDay) {
+      if (existingDay != null) {
         currentDay = existingDay
         data.warnings.push({
           line,
-          message: WARNING_DUPLICATED_DATE,
+          message: WARNING_DUPLICATED_DATE
         })
       } else {
         currentDay = {
           date: idToFormattedDate(date),
           value,
-          todos: [],
+          todos: []
         }
         data.days.push(currentDay)
       }
     } else {
       data.warnings.push({
         line,
-        message: WARNING_INVALID_DATE_FORMAT,
+        message: WARNING_INVALID_DATE_FORMAT
       })
     }
   }
 
-  function processTodo(text:string, _line: number) {
-    if (!currentDay) {
+  function processTodo (text: string, _line: number) {
+    if (currentDay == null) {
       return
     }
     currentDay.todos.push({
       done: text.startsWith('- [x]'),
       label: text.substring(5).trim(),
-      id: todoUid(),
+      id: todoUid()
     })
   }
 
-  function sortDates() {
+  function sortDates () {
     data.days.sort((a: Day, b: Day) => a.value - b.value)
   }
 

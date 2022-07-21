@@ -4,18 +4,18 @@ import { Todos } from './types'
 /**
  * Opens a file from local file system.
  */
-export async function openTodosFile(): Promise<Todos | null> {
+export async function openTodosFile (): Promise<Todos | null> {
   const options = {
     types: [
       {
         description: 'Markdown',
         accept: {
-          'text/*': ['.md', '.markdown'],
-        },
-      },
+          'text/*': ['.md', '.markdown']
+        }
+      }
     ],
     excludeAcceptAllOption: true,
-    multiple: false,
+    multiple: false
   }
 
   const [fileHandle] = await window.showOpenFilePicker(options)

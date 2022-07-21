@@ -1,18 +1,18 @@
-type Query = string | null | (string | null | Query)[];
+type Query = string | null | Array<string | null | Query>
 
 /**
  * Updated from https://github.com/dropbox/dropbox-sdk-js/blob/main/examples/javascript/utils.js
  */
-export function parseQueryString(queryStr: string): {
-  [key: string]: Query;
+export function parseQueryString (queryStr: string): {
+  [key: string]: Query
 } {
   const result: { [key: string]: Query } = {}
 
-  const str = queryStr.trim().replace(/^(\?|#|&)/, '')
-
-  if (!queryStr) {
+  if (queryStr === '') {
     return result
   }
+
+  const str = queryStr.trim().replace(/^(\?|#|&)/, '')
 
   str.split('&').forEach(param => {
     const parts = param.replace(/\+/g, ' ').split('=')
@@ -20,7 +20,7 @@ export function parseQueryString(queryStr: string): {
     // https://github.com/sindresorhus/query-string/pull/37
     let key = parts.shift()
 
-    if (key) {
+    if (key != null) {
       key = decodeURIComponent(key)
       const rawValue = parts.length > 0 ? parts.join('=') : undefined
 

@@ -1,5 +1,5 @@
 
-export function coords(event: MouseEvent | TouchEvent) {
+export function coords (event: MouseEvent | TouchEvent) {
   if (event instanceof MouseEvent) {
     return { x: event.clientX, y: event.clientY }
   }

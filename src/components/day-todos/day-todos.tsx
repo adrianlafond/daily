@@ -10,7 +10,7 @@ export interface DayTodosProps extends Day {}
 export const DayTodos = ({ date, todos }: DayTodosProps) => {
   const dispatch = useAppDispatch()
 
-  function handleAddTodo() {
+  function handleAddTodo () {
     dispatch(addTodo({ date, label: 'what?' }))
   }
 

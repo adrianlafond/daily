@@ -9,8 +9,8 @@ import { deleteTodo, editTodoLabel, editTodoDone } from '../../features'
 import style from './style.css'
 
 export interface TodoItemProps extends Todo {
-  date: string;
-  index: number;
+  date: string
+  index: number
 }
 
 let uidNum = 0
@@ -26,15 +26,15 @@ export const TodoItem = ({ label, done, date, id, index }: TodoItemProps) => {
 
   const uid = useRef(`todo-${uidNum++}`)
 
-  function handleDragStart() {
+  function handleDragStart () {
     setDragging(true)
   }
 
-  function handleDragEnd() {
+  function handleDragEnd () {
     setDragging(false)
   }
 
-  function handleDragUpdate() {
+  function handleDragUpdate () {
     const items: HTMLElement[] = Array.from(
       document.querySelectorAll('[data-todo]'))
     items.splice(items.findIndex(item => item === element.current), 1)
@@ -70,11 +70,11 @@ export const TodoItem = ({ label, done, date, id, index }: TodoItemProps) => {
     }
   }
 
-  function handleDblClick() {
+  function handleDblClick () {
     setEditing(true)
   }
 
-  function handleInputBlur(event: FocusEvent) {
+  function handleInputBlur (event: FocusEvent) {
     setEditing(false)
     if (cancelled.current) {
       cancelled.current = false
@@ -84,7 +84,7 @@ export const TodoItem = ({ label, done, date, id, index }: TodoItemProps) => {
     }
   }
 
-  function handleInputKeyDown(event: KeyboardEvent) {
+  function handleInputKeyDown (event: KeyboardEvent) {
     if (event.key === 'Enter') {
       (event.target as HTMLInputElement).blur()
     } else if (event.key === 'Escape') {
@@ -93,27 +93,27 @@ export const TodoItem = ({ label, done, date, id, index }: TodoItemProps) => {
     }
   }
 
-  function handleInputRef(input: HTMLInputElement | null) {
-    if (input) {
+  function handleInputRef (input: HTMLInputElement | null) {
+    if (input != null) {
       input.focus()
     }
   }
 
-  function handleDeleteTodo() {
+  function handleDeleteTodo () {
     dispatch(deleteTodo({ date, id }))
   }
 
-  function handleDoneChange(event: ChangeEvent) {
+  function handleDoneChange (event: ChangeEvent) {
     const value = (event.target as HTMLInputElement).checked
     dispatch(editTodoDone({ date, id, done: value }))
   }
 
   const blockClassName = cx(style.todo, {
-    [style['todo--dragging']]: dragging,
+    [style['todo--dragging']]: dragging
   })
 
   const inlineBlockClassName = cx(style['todo__inline-block'], {
-    [style['todo__inline-block--dragging']]: dragging,
+    [style['todo__inline-block--dragging']]: dragging
   })
 
   return (
@@ -135,21 +135,23 @@ export const TodoItem = ({ label, done, date, id, index }: TodoItemProps) => {
             onChange={handleDoneChange}
             disabled={editing}
           />
-          {editing ? (
+          {editing
+            ? (
             <input
               value={label}
               onBlur={handleInputBlur}
               onKeyDown={handleInputKeyDown}
               ref={handleInputRef}
             />
-          ) : (
+              )
+            : (
             <>
               <label htmlFor={uid.current} onDblClick={handleDblClick}>
                 {label}
               </label>
               <button onClick={handleDeleteTodo}>x</button>
             </>
-          )}
+              )}
         </div>
       </div>
     </DraggableListItem>

@@ -7,31 +7,31 @@ import { parseQueryString } from '../../utils/parse-query-string'
 import style from './style.css'
 
 export interface DaysProps {
-  date?: string;
+  date?: string
 }
 
 const CLIENT_ID = 'ih3d422ruazvhwd'
 
 const Days = ({ date }: DaysProps) => {
   const [count, setCount] = useState(0)
-  function increment() {
+  function increment () {
     setCount(count + 1)
   }
 
   const [days, setDays] = useState(getDefaultTodos())
   const [auth, setAuth] = useState({
     isAuthenticated: false,
-    url: '',
+    url: ''
   })
 
-  async function handleOpenFile() {
+  async function handleOpenFile () {
     const data = await openTodosFile()
-    if (data) {
+    if (data != null) {
       setDays(data)
     }
   }
 
-  async function listFiles(accessToken: string) {
+  async function listFiles (accessToken: string) {
     const dbx = new Dropbox({ accessToken })
     try {
       const files = await dbx.filesListFolder({ path: '' })
@@ -43,14 +43,14 @@ const Days = ({ date }: DaysProps) => {
     }
   }
 
-  async function setupAuth() {
+  async function setupAuth () {
     const dbxAuth = new DropboxAuth({ clientId: CLIENT_ID })
     const url = (await dbxAuth.getAuthenticationUrl(
       'http://localhost:8080'
     )) as string // because "Type 'String' is not assignable to type 'string'"
     setAuth({
       isAuthenticated: true,
-      url,
+      url
     })
   }
 
@@ -59,7 +59,7 @@ const Days = ({ date }: DaysProps) => {
     const token = params.access_token as string
     const isAuthenticated = !!token
     if (isAuthenticated) {
-      listFiles(token)
+      await listFiles(token)
     } else {
       setupAuth()
     }
@@ -82,11 +82,13 @@ const Days = ({ date }: DaysProps) => {
 
       <h2>Dropbox</h2>
 
-      {auth.isAuthenticated ? (
+      {auth.isAuthenticated
+        ? (
         <a href={auth.url}>Authenticate with Dropbox</a>
-      ) : (
+          )
+        : (
         <p>Congrats</p>
-      )}
+          )}
     </div>
   )
 }
