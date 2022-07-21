@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Todos, Todo, parseTodos, todoUid } from '../services';
-import { days } from '../services/id-to-date';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Todos, Todo, parseTodos, todoUid } from '../services'
+import { days } from '../services/id-to-date'
 
 
-const name = 'zoom';
+const name = 'zoom'
 const initialState = parseTodos(`
 # personal
 
@@ -17,10 +17,10 @@ const initialState = parseTodos(`
 - [ ] take out the garbage
 - [ ] buy milk
 - [ ] vacuum
-`) as Todos;
+`) as Todos
 
 function getDay(state: Todos, date: string) {
-  return state.days.find(item => item.date === date);
+  return state.days.find(item => item.date === date)
 }
 
 function addTodoAction(state: Todos, action: PayloadAction<{
@@ -32,10 +32,10 @@ function addTodoAction(state: Todos, action: PayloadAction<{
     label: action.payload.label,
     done: !!action.payload.done,
     id: todoUid(),
-  };
-  const day = getDay(state, action.payload.date);
+  }
+  const day = getDay(state, action.payload.date)
   if (day) {
-    day.todos.push(todo);
+    day.todos.push(todo)
   }
 }
 
@@ -43,13 +43,13 @@ function deleteTodoAction(state: Todos, action: PayloadAction<{
   date: string;
   id: string;
 }>) {
-  const { date, id } = action.payload;
-  const day = getDay(state, date);
+  const { date, id } = action.payload
+  const day = getDay(state, date)
   if (day) {
     for (let i = 0; i < day.todos.length; i++) {
       if (day.todos[i].id === id) {
-        day.todos.splice(i, 1);
-        break;
+        day.todos.splice(i, 1)
+        break
       }
     }
   }
@@ -60,13 +60,13 @@ function editTodoLabelAction(state: Todos, action: PayloadAction<{
   id: string;
   label: string;
 }>) {
-  const { date, id, label } = action.payload;
-  const day = getDay(state, date);
+  const { date, id, label } = action.payload
+  const day = getDay(state, date)
   if (day) {
     for (let i = 0; i < day.todos.length; i++) {
       if (day.todos[i].id === id) {
-        day.todos[i].label = label;
-        break;
+        day.todos[i].label = label
+        break
       }
     }
   }
@@ -77,13 +77,13 @@ function editTodoDoneAction(state: Todos, action: PayloadAction<{
   id: string;
   done: boolean;
 }>) {
-  const { date, id, done } = action.payload;
-  const day = getDay(state, date);
+  const { date, id, done } = action.payload
+  const day = getDay(state, date)
   if (day) {
     for (let i = 0; i < day.todos.length; i++) {
       if (day.todos[i].id === id) {
-        day.todos[i].done = done;
-        break;
+        day.todos[i].done = done
+        break
       }
     }
   }
@@ -97,20 +97,20 @@ export const todosSlice = createSlice({
       from: number;
       to: number;
     }>) => {
-      const { from, to } = action.payload;
-      let f = 0;
-      let d = 0;
-      let todo: Todo | null = null;
+      const { from, to } = action.payload
+      let f = 0
+      let d = 0
+      let todo: Todo | null = null
       while (d < state.days.length) {
-        const day = state.days[d];
-        f += day.todos.length + 1;// + 1 for the day itself
+        const day = state.days[d]
+        f += day.todos.length + 1// + 1 for the day itself
         if (from < f) {
-          [todo] = day.todos.splice(f - from - 1, 1);
-          break;
+          [todo] = day.todos.splice(f - from - 1, 1)
+          break
         }
-        d += 1;
+        d += 1
       }
-      console.log(todo);
+      console.log(todo)
       // state.days = [];
     },
 
@@ -119,7 +119,7 @@ export const todosSlice = createSlice({
     editTodoLabel: editTodoLabelAction,
     editTodoDone: editTodoDoneAction,
   }
-});
+})
 
 export const {
   updateTodoPosition,
@@ -127,6 +127,6 @@ export const {
   deleteTodo,
   editTodoLabel,
   editTodoDone,
-} = todosSlice.actions;
+} = todosSlice.actions
 
-export const todosReducer = todosSlice.reducer;
+export const todosReducer = todosSlice.reducer

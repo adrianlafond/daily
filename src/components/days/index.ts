@@ -1,1 +1,1 @@
-export * from './days';
+export * from './days'

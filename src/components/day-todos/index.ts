@@ -1,1 +1,1 @@
-export * from './day-todos';
+export * from './day-todos'

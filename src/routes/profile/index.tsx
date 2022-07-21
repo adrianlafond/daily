@@ -1,30 +1,30 @@
-import { FunctionalComponent, h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
-import style from './style.css';
+import { FunctionalComponent, h } from 'preact'
+import { useEffect, useState } from 'preact/hooks'
+import style from './style.css'
 
 interface Props {
   user: string;
 }
 
 const Profile: FunctionalComponent<Props> = (props: Props) => {
-  const { user } = props;
-  const [time, setTime] = useState<number>(Date.now());
-  const [count, setCount] = useState<number>(0);
+  const { user } = props
+  const [time, setTime] = useState<number>(Date.now())
+  const [count, setCount] = useState<number>(0)
 
   // gets called when this route is navigated to
   useEffect(() => {
-    const timer = window.setInterval(() => setTime(Date.now()), 1000);
+    const timer = window.setInterval(() => setTime(Date.now()), 1000)
 
     // gets called just before navigating away from the route
     return (): void => {
-      clearInterval(timer);
-    };
-  }, []);
+      clearInterval(timer)
+    }
+  }, [])
 
   // update the current time
-  const increment = (): void => {
-    setCount(count + 1);
-  };
+  function increment() {
+    setCount(count + 1)
+  }
 
   return (
     <div className={style.profile}>
@@ -37,7 +37,7 @@ const Profile: FunctionalComponent<Props> = (props: Props) => {
         <button onClick={increment}>Click Me</button> Clicked {count} times.
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

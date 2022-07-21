@@ -1,4 +1,4 @@
-import { createContext } from 'preact';
+import { createContext } from 'preact'
 
 export interface DraggableContextProps {
   dragging: boolean;
@@ -6,4 +6,4 @@ export interface DraggableContextProps {
 
 export const DraggableContext = createContext<DraggableContextProps>({
   dragging: false,
-});
+})

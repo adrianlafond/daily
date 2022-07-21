@@ -1,6 +1,6 @@
-import { FunctionalComponent, h } from 'preact';
-import { Link } from 'preact-router/match';
-import style from './style.css';
+import { FunctionalComponent, h } from 'preact'
+import { Link } from 'preact-router/match'
+import style from './style.css'
 
 const NotFound: FunctionalComponent = () => (
   <div className={style.notfound}>
@@ -10,6 +10,6 @@ const NotFound: FunctionalComponent = () => (
       <h4>Back to Home</h4>
     </Link>
   </div>
-);
+)
 
-export default NotFound;
+export default NotFound

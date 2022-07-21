@@ -1,20 +1,20 @@
-import { FunctionalComponent, h } from 'preact';
-import { Route, Router } from 'preact-router';
+import { FunctionalComponent, h } from 'preact'
+import { Route, Router } from 'preact-router'
 
-import Days from '../routes/days';
-import Todos from '../routes/todos';
-import Home from '../routes/home';
-import Profile from '../routes/profile';
-import NotFoundPage from '../routes/notfound';
-import { Header } from './header';
+import Days from '../routes/days'
+import Todos from '../routes/todos'
+import Home from '../routes/home'
+import Profile from '../routes/profile'
+import NotFoundPage from '../routes/notfound'
+import { Header } from './header'
 
-const days = ['Sun', 'M', 'T', 'W', 'R', 'F', 'Sat'];
+const days = ['Sun', 'M', 'T', 'W', 'R', 'F', 'Sat']
 
 const Main: FunctionalComponent = () => {
-  const today = new Date();
+  const today = new Date()
   const defaultDate = `${today.getFullYear()}-${
     today.getMonth() + 1
-  }-${today.getDate()} ${days[today.getDay()]}`;
+  }-${today.getDate()} ${days[today.getDay()]}`
 
   return (
     <div id="preact_root">
@@ -29,7 +29,7 @@ const Main: FunctionalComponent = () => {
         <NotFoundPage default />
       </Router>
     </div>
-  );
-};
+  )
+}
 
-export default Main;
+export default Main

@@ -52,7 +52,7 @@
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "no-param-reassign": ["error", { "props": false }],
     "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
-    "semi": "error",
+    "semi": ["error", "never"],
     "keyword-spacing": "error",
     "require-atomic-updates": "off",
     "react/button-has-type": "off",

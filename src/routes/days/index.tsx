@@ -1,69 +1,69 @@
-import { h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
-import { Dropbox, DropboxAuth } from 'dropbox';
-import { openTodosFile, getDefaultTodos } from '../../services';
-import { parseQueryString } from '../../utils/parse-query-string';
+import { h } from 'preact'
+import { useEffect, useState } from 'preact/hooks'
+import { Dropbox, DropboxAuth } from 'dropbox'
+import { openTodosFile, getDefaultTodos } from '../../services'
+import { parseQueryString } from '../../utils/parse-query-string'
 
-import style from './style.css';
+import style from './style.css'
 
 export interface DaysProps {
   date?: string;
 }
 
-const CLIENT_ID = 'ih3d422ruazvhwd';
+const CLIENT_ID = 'ih3d422ruazvhwd'
 
 const Days = ({ date }: DaysProps) => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
   function increment() {
-    setCount(count + 1);
+    setCount(count + 1)
   }
 
-  const [days, setDays] = useState(getDefaultTodos());
+  const [days, setDays] = useState(getDefaultTodos())
   const [auth, setAuth] = useState({
     isAuthenticated: false,
     url: '',
-  });
+  })
 
   async function handleOpenFile() {
-    const data = await openTodosFile();
+    const data = await openTodosFile()
     if (data) {
-      setDays(data);
+      setDays(data)
     }
   }
 
   async function listFiles(accessToken: string) {
-    const dbx = new Dropbox({ accessToken });
+    const dbx = new Dropbox({ accessToken })
     try {
-      const files = await dbx.filesListFolder({ path: '' });
+      const files = await dbx.filesListFolder({ path: '' })
       // eslint-disable-next-line no-console
-      console.log(files);
+      console.log(files)
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error(error);
+      console.error(error)
     }
   }
 
   async function setupAuth() {
-    const dbxAuth = new DropboxAuth({ clientId: CLIENT_ID });
+    const dbxAuth = new DropboxAuth({ clientId: CLIENT_ID })
     const url = (await dbxAuth.getAuthenticationUrl(
       'http://localhost:8080'
-    )) as string; // because "Type 'String' is not assignable to type 'string'"
+    )) as string // because "Type 'String' is not assignable to type 'string'"
     setAuth({
       isAuthenticated: true,
       url,
-    });
+    })
   }
 
   useEffect(() => {
-    const params = parseQueryString(window.location.hash);
-    const token = params.access_token as string;
-    const isAuthenticated = !!token;
+    const params = parseQueryString(window.location.hash)
+    const token = params.access_token as string
+    const isAuthenticated = !!token
     if (isAuthenticated) {
-      listFiles(token);
+      listFiles(token)
     } else {
-      setupAuth();
+      setupAuth()
     }
-  }, [typeof window !== 'undefined' ? window.location.href : null]);
+  }, [typeof window !== 'undefined' ? window.location.href : null])
 
   return (
     <div className={style.days}>
@@ -88,7 +88,7 @@ const Days = ({ date }: DaysProps) => {
         <p>Congrats</p>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Days;
+export default Days
