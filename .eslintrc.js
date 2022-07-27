@@ -1,6 +1,6 @@
 module.exports = {
   extends: [
-    standard-with-typescript
+    'standard-with-typescript'
   ],
   env: {
     browser: true,
@@ -23,10 +23,10 @@ module.exports = {
     ecmaFeatures: {
       jsx: true
     },
-    project:' tsconfig.json',
+    project: 'tsconfig.json',
     tsconfigRootDir: __dirname
   },
   rules: {
-   ' @typescript-eslint/explicit-function-return-type': 'off'
+   '@typescript-eslint/explicit-function-return-type': 'off'
   }
 }

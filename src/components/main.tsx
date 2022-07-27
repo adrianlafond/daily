@@ -1,7 +1,6 @@
 import { FunctionalComponent, h } from 'preact'
 import { Route, Router } from 'preact-router'
 
-import Days from '../routes/days'
 import Todos from '../routes/todos'
 import Home from '../routes/home'
 import Profile from '../routes/profile'
@@ -20,7 +19,7 @@ const Main: FunctionalComponent = () => {
     <div id="preact_root">
       <Header />
       <Router>
-        <Route path="/" component={Days} />
+        <Route path="/" component={Todos} />
         <Route path="/todos" component={Todos} date={defaultDate} />
         <Route path="/todos/:date" component={Todos} />
         <Route path="/home" component={Home} />
