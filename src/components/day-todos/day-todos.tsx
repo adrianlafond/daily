@@ -11,8 +11,8 @@ export const DayTodos = ({ date, todos }: DayTodosProps) => (
     <h3 className={style['day-todos__date']} data-todo={`${date}-0`}>
       {date}
     </h3>
-    {todos.map((todo, index) => (
-      <TodoItem key={todo.id} {...todo} date={date} index={index + 1} />
+    {todos.map(todo => (
+      <TodoItem key={todo.id} {...todo} date={date} />
     ))}
     <AddTodo date={date} />
   </div>

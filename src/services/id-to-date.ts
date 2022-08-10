@@ -1,12 +1,6 @@
-export const days = ['Sun', 'M', 'T', 'W', 'R', 'F', 'Sat']
+import { addLeadingZero } from './add-leading-zero'
 
-function addLeadingZero (num: number) {
-  let str = `${num}`
-  if (str.length < 2) {
-    str = `0${str}`
-  }
-  return str
-}
+export const days = ['Sun', 'M', 'T', 'W', 'R', 'F', 'Sat']
 
 /**
  * Converts an date ID to a Date object. Assumes input is in

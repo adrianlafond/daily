@@ -1,4 +1,5 @@
 import { h } from 'preact'
+import { memo } from 'preact/compat'
 import { useAppDispatch } from '../../hooks'
 import { addTodo } from '../../features'
 import { Day } from '../../services'
@@ -11,7 +12,7 @@ export interface AddTodoProps {
   date: Day['date']
 }
 
-export const AddTodo = ({ date }: AddTodoProps) => {
+export const AddTodo = memo(({ date }: AddTodoProps) => {
   const dispatch = useAppDispatch()
 
   const [adding, setAdding] = useState(false)
@@ -67,6 +68,8 @@ export const AddTodo = ({ date }: AddTodoProps) => {
     <input ref={inputRef} onKeyDown={handleKeyDown} onBlur={handleBlur} />
       )
     : (
-    <button onClick={startAdding}>add todo</button>
+    <button onClick={startAdding} data-draggable-list-item-target={date}>
+      add todo
+    </button>
       )
-}
+})

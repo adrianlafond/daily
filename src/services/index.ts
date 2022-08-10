@@ -1,3 +1,5 @@
+export * from './add-leading-zero'
+export * from './id-to-date'
 export * from './types'
 export * from './parse-todos'
 export * from './todos-file'

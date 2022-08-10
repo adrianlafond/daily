@@ -1,21 +1,25 @@
 import { h, Fragment } from 'preact'
+import { ChangeEvent, memo } from 'preact/compat'
 import { useRef, useState } from 'preact/hooks'
 import cx from 'classnames'
-import { ChangeEvent } from 'preact/compat'
 import { Todo } from '../../services'
-import { DraggableListItem } from '../draggable-list-tem'
+import { DraggableListItem, DropDetails } from '../draggable-list-tem'
 import { useAppDispatch } from '../../hooks'
-import { deleteTodo, editTodoLabel, editTodoDone } from '../../features'
+import {
+  deleteTodo,
+  editTodoLabel,
+  editTodoDone,
+  updateTodoPosition
+} from '../../features'
 import style from './style.css'
 
 export interface TodoItemProps extends Todo {
   date: string
-  index: number
 }
 
 let uidNum = 0
 
-export const TodoItem = ({ label, done, date, id, index }: TodoItemProps) => {
+export const TodoItem = memo(({ label, done, date, id }: TodoItemProps) => {
   const [editing, setEditing] = useState(false)
   const [dragging, setDragging] = useState(false)
   const element = useRef<HTMLDivElement>(null)
@@ -30,44 +34,18 @@ export const TodoItem = ({ label, done, date, id, index }: TodoItemProps) => {
     setDragging(true)
   }
 
-  function handleDragEnd () {
+  function handleDragEnd (details: DropDetails) {
     setDragging(false)
+    dispatch(updateTodoPosition({
+      id,
+      date,
+      newDate: details?.date,
+      beforeId: details?.beforeId
+    }))
   }
 
-  function handleDragUpdate () {
-    const items: HTMLElement[] = Array.from(
-      document.querySelectorAll('[data-todo]'))
-    items.splice(items.findIndex(item => item === element.current), 1)
-    const elY = element.current?.getBoundingClientRect().y
-
-    if (elY != null) {
-      let start = 0
-      let end = items.length
-      const findDropIndex = (): number => {
-        if (end === start) {
-          return end
-        }
-        if (end - start === 1) {
-          return start
-        }
-        const mid = Math.floor((end - start) / 2 + start)
-        const midY = items[mid].getBoundingClientRect().y
-        if (elY === midY) {
-          return mid
-        }
-        if (elY < midY) {
-          end = mid
-          return findDropIndex()
-        }
-        start = mid
-        return findDropIndex()
-      }
-      const dropIndex = findDropIndex()
-      items.forEach((item, i) => {
-        item.style.marginBottom = i === dropIndex ? '24px' : 'unset'
-        // item.style.borderBottom = i === dropIndex ? '1px solid red' : 'none';
-      })
-    }
+  function handleDragUpdate (details: DropDetails) {
+    // ...
   }
 
   function handleDblClick () {
@@ -121,11 +99,11 @@ export const TodoItem = ({ label, done, date, id, index }: TodoItemProps) => {
       onDragStart={handleDragStart}
       onDragUpdate={handleDragUpdate}
       onDragEnd={handleDragEnd}
+      data={`${date}/${id}`}
     >
       <div
         className={blockClassName}
         ref={element}
-        data-todo={`${date}-${index}`}
       >
         <div className={inlineBlockClassName}>
           <input
@@ -156,4 +134,4 @@ export const TodoItem = ({ label, done, date, id, index }: TodoItemProps) => {
       </div>
     </DraggableListItem>
   )
-}
+})
