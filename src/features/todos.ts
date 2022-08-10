@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Todos, Todo, todoUid, idToFormattedDate, Day, days } from '../services'
+import { Todos, Todo, todoUid, idToFormattedDate, Day } from '../services'
 
 const name = 'zoom'
 const initialState: Todos = {
